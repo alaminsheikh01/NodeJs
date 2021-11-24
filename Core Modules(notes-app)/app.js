@@ -63,3 +63,13 @@ console.log(validator.isEmail("alamin@gmail.com"));
 const chalk = require("chalk");
 
 console.log(chalk.green.bold.italic.underline.inverse("Success!!"));
+// console.log(process.argv);
+// console.log(process.argv[1]);
+
+const command = process.argv[2];
+
+if (command === "add") {
+  console.log("adding a notes!");
+} else if (command === "remove") {
+  console.log("remove a notes");
+}
