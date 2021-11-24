@@ -68,8 +68,32 @@ console.log(chalk.green.bold.italic.underline.inverse("Success!!"));
 
 const command = process.argv[2];
 
-if (command === "add") {
-  console.log("adding a notes!");
-} else if (command === "remove") {
-  console.log("remove a notes");
-}
+// if (command === "add") {
+//   console.log("adding a notes!");
+// } else if (command === "remove") {
+//   console.log("remove a notes");
+// }
+
+/**
+ * learn about yargs
+ */
+
+const yargs = require("yargs");
+
+// yargs.version("1.1.0");
+
+//console.log(process.argv);
+//console.log(yargs.argv);
+
+/**
+ * Create add command
+ */
+yargs.command({
+  command: "add",
+  describe: "Add a new note",
+  handler: function () {
+    console.log("Adding a new note");
+  },
+});
+
+console.log(yargs.argv);
