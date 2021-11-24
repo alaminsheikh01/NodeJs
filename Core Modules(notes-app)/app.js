@@ -25,7 +25,7 @@ fs.appendFileSync("notes.txt", "  \nThis is a append file");
 const add = require("./utils.js");
 
 const sum = add(4, 5);
-console.log(sum);
+//console.log(sum);
 // console.log(firstName);
 
 /**
@@ -42,4 +42,24 @@ const getNotes = require("./notes.js");
 
 const message = getNotes();
 
-console.log(message);
+//console.log(message);
+
+/**
+ * used npm package modules
+ */
+
+const validator = require("validator");
+
+console.log(validator.isEmail("alamin@gmail.com"));
+
+/**
+ * Use the calk library in your project
+ *
+ * 1. install chalk
+ * 2. load chalk into app.js
+ * 3. Use it to print the string "Success!" to the console in green
+ * 4. test your work
+ */
+const chalk = require("chalk");
+
+console.log(chalk.green.bold.italic.underline.inverse("Success!"));
