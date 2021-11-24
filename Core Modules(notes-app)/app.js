@@ -62,4 +62,4 @@ console.log(validator.isEmail("alamin@gmail.com"));
  */
 const chalk = require("chalk");
 
-console.log(chalk.green.bold.italic.underline.inverse("Success!"));
+console.log(chalk.green.bold.italic.underline.inverse("Success!!"));
