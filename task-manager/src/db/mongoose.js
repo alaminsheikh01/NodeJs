@@ -7,6 +7,10 @@ mongoose.connect(
   }
 );
 
+/**
+ * Make a simple schema for store data
+ */
+
 const User = mongoose.model("User", {
   name: {
     type: String,
@@ -16,10 +20,18 @@ const User = mongoose.model("User", {
   },
 });
 
+/**
+ * initial data
+ */
+
 const me = new User({
   name: "Alamin",
   age: 22,
 });
+
+/**
+ * save data in the database
+ */
 
 me.save()
   .then(() => {
