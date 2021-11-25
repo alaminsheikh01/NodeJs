@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 mongoose.connect(
   "mongodb+srv://test:test@demo.erwyk.mongodb.net/TestData?retryWrites=true&w=majority",
@@ -46,6 +47,15 @@ const Task = mongoose.model("Task", {
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error("Email is invalid");
+      }
+    },
+  },
   age: {
     type: Number,
     validate(value) {
@@ -59,6 +69,7 @@ const Task = mongoose.model("Task", {
 const task = new Task({
   description: "Learn the Mongoose library",
   age: 22,
+  email: "alamin",
 });
 
 task
