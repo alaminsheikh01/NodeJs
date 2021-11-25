@@ -6,8 +6,3 @@ mongoose.connect(
     useNewUrlParser: true,
   }
 );
-
-// const task = new Task({
-//   name: "Alamin Sheikh",
-//   email: "alamin@gmail.com",
-// });
