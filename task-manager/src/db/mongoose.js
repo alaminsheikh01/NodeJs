@@ -11,32 +11,55 @@ mongoose.connect(
  * Make a simple schema for store data
  */
 
-const User = mongoose.model("User", {
-  name: {
+// const User = mongoose.model("User", {
+//   name: {
+//     type: String,
+//   },
+//   age: {
+//     type: Number,
+//   },
+// });
+
+// /**
+//  * initial data
+//  */
+
+// const me = new User({
+//   name: "Alamin",
+//   age: 22,
+// });
+
+// /**
+//  * save data in the database
+//  */
+
+// me.save()
+//   .then(() => {
+//     console.log(me);
+//   })
+//   .catch((error) => {
+//     console.log("Error! ", error);
+//   });
+
+const Task = mongoose.model("Task", {
+  description: {
     type: String,
   },
-  age: {
-    type: Number,
+  completed: {
+    type: String,
   },
 });
 
-/**
- * initial data
- */
-
-const me = new User({
-  name: "Alamin",
-  age: 22,
+const task = new Task({
+  description: "Learn the Mongoose library",
+  completed: false,
 });
 
-/**
- * save data in the database
- */
-
-me.save()
+task
+  .save()
   .then(() => {
-    console.log(me);
+    console.log(task);
   })
   .catch((error) => {
-    console.log("Error! ", error);
+    console.log("Error!", error);
   });
