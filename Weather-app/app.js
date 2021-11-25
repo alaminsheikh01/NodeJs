@@ -1,15 +1,9 @@
-console.log("Starting...");
+const request = require("request");
 
-/**
- * Asynchronous Basic
- */
+const url =
+  "https://api.openweathermap.org/data/2.5/weather?q=Dhaka&appid=d01b1d047eed4e27b5adb26d9bcf1d00";
 
-setTimeout(() => {
-  console.log("2 second timer");
-}, 2000);
-
-setTimeout(() => {
-  console.log("0 second timer");
-}, 0);
-
-console.log("Stopping.");
+request({ url: url }, (error, response) => {
+  const data = JSON.parse(response.body);
+  console.log(data);
+});
