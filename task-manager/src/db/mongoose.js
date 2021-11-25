@@ -44,15 +44,21 @@ mongoose.connect(
 const Task = mongoose.model("Task", {
   description: {
     type: String,
+    required: true,
   },
-  completed: {
-    type: String,
+  age: {
+    type: Number,
+    validate(value) {
+      if (value < 0) {
+        throw new Error("Age must be a positive value");
+      }
+    },
   },
 });
 
 const task = new Task({
   description: "Learn the Mongoose library",
-  completed: false,
+  age: 22,
 });
 
 task
