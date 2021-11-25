@@ -43,13 +43,16 @@ mongoose.connect(
 //   });
 
 const Task = mongoose.model("Task", {
-  description: {
+  name: {
     type: String,
     required: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
+    trim: true,
+    lowercase: true,
     validate(value) {
       if (!validator.isEmail(value)) {
         throw new Error("Email is invalid");
@@ -58,6 +61,7 @@ const Task = mongoose.model("Task", {
   },
   age: {
     type: Number,
+    default: 0,
     validate(value) {
       if (value < 0) {
         throw new Error("Age must be a positive value");
@@ -67,9 +71,8 @@ const Task = mongoose.model("Task", {
 });
 
 const task = new Task({
-  description: "Learn the Mongoose library",
-  age: 22,
-  email: "alamin",
+  name: "     Alamin Sheikh",
+  email: "alamin@gmail.com",
 });
 
 task
