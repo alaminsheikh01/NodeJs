@@ -8,6 +8,12 @@ const port = process.env.PORT || 2000;
 
 app.use(express.json());
 
+const router = new express.Router();
+router.get("/test", (req, res) => {
+  res.send("this is a new router");
+});
+app.use(router);
+
 /**
  * save user data from user model
  */
