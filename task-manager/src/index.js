@@ -79,6 +79,22 @@ app.patch("/users/:id", async (req, res) => {
 });
 
 /**
+ * delete the user info.
+ */
+
+app.delete("/users/:id", async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(404).send({ message: "User already deleted" });
+    }
+    res.send(user);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+/**
  * save task data from task model
  */
 
@@ -147,6 +163,22 @@ app.patch("/tasks/:id", async (req, res) => {
     res.send(task);
   } catch (e) {
     res.status(400).send(e);
+  }
+});
+
+/**
+ * delete task info
+ */
+
+app.delete("/tasks/:id", async (req, res) => {
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) {
+      return res.status(404).send({ message: "task already deleted" });
+    }
+    res.send(task);
+  } catch (e) {
+    res.status(404).send(e);
   }
 });
 
