@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 const userSchma = new mongoose.Schema(
   {
@@ -11,6 +12,7 @@ const userSchma = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
       trim: true,
       lowercase: true,
       validate(value) {
@@ -43,10 +45,29 @@ const userSchma = new mongoose.Schema(
   { timestamps: true }
 );
 
+userSchma.statics.findByCredentials = async (email, password) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error("Unable to login");
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch) {
+    throw new Error("Unable to login");
+  }
+};
+
+/**
+ * Hash the plan text password before saving.
+ */
 userSchma.pre("save", async function (next) {
   const user = this;
 
-  console.log("just before saving");
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 10);
+  }
 
   next();
 });
