@@ -9,14 +9,14 @@ const router = new express.Router();
 
 router.post("/users", async (req, res) => {
   const user = new User(req.body);
-  await user
-    .save()
-    .then(() => {
-      res.send(user);
-    })
-    .catch((error) => {
-      res.status(400).send(error);
-    });
+
+  try {
+    await user.save();
+    const token = await user.generateAuthToken();
+    res.status(201).send({ user, token });
+  } catch (e) {
+    res.status(400).send(e);
+  }
 });
 
 /**
@@ -29,11 +29,30 @@ router.post("/users/login", async (req, res) => {
       req.body.email,
       req.body.password
     );
-    res.send(user);
+    const token = await user.generateAuthToken();
+    res.send({ user, token });
   } catch (e) {
-    res.status(400).send();
+    res.status(400).send(e);
   }
 });
+
+// router.post("/users/login", async (req, res) => {
+//   const { email, password } = req.body;
+
+//   const user = await User.findOne({ email });
+
+//   if (user && (await user.findByCredentials(password))) {
+//     res.json({
+//       _id: user._id,
+//       name: user.name,
+//       email: user.email,
+//       token: generateToken(user._id),
+//     });
+//   } else {
+//     res.status(401);
+//     throw new Error("Invalid email or password");
+//   }
+// });
 
 /**
  * find all user
