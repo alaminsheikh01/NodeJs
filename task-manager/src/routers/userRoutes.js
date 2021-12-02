@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
+const auth = require("../middleware/auth");
 const router = new express.Router();
 
 /**
@@ -36,23 +37,9 @@ router.post("/users/login", async (req, res) => {
   }
 });
 
-// router.post("/users/login", async (req, res) => {
-//   const { email, password } = req.body;
-
-//   const user = await User.findOne({ email });
-
-//   if (user && (await user.findByCredentials(password))) {
-//     res.json({
-//       _id: user._id,
-//       name: user.name,
-//       email: user.email,
-//       token: generateToken(user._id),
-//     });
-//   } else {
-//     res.status(401);
-//     throw new Error("Invalid email or password");
-//   }
-// });
+/**
+ * find token user
+ */
 
 /**
  * find all user
@@ -65,6 +52,9 @@ router.get("/users", async (req, res) => {
     .catch((e) => res.status(400).send(e));
 });
 
+router.get("/users/me", auth, async (req, res) => {
+  res.send(req.user);
+});
 /**
  * find single user data
  */
