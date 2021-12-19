@@ -21,6 +21,7 @@ router.post("/task", async (req, res) => {
 /**
  * shows all tasks
  */
+
 router.get("/tasks", async (req, res) => {
   await Task.find({})
     .then((tasks) => {

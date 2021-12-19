@@ -38,12 +38,23 @@ router.post("/users/login", async (req, res) => {
 });
 
 /**
- * find token user
+ * user logout
  */
+router.post("/users/logout", auth, async (req, res) => {
+  try {
+    req.user.tokens = user.tokens.filter((token) => {
+      return token.token !== req.token;
+    });
+    await req.user.save();
+  } catch (e) {
+    res.status(500).send();
+  }
+});
 
 /**
  * find all user
  */
+
 router.get("/users", async (req, res) => {
   await User.find({})
     .then((users) => {
@@ -75,6 +86,7 @@ router.get("/users/:id", async (req, res) => {
 /**
  * update the user info
  */
+
 router.patch("/users/:id", async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email", "password", "age"];
@@ -85,11 +97,6 @@ router.patch("/users/:id", async (req, res) => {
     return res.status(400).send({ error: "invalid updates" });
   }
   try {
-    // const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-    //   new: true,
-    //   runValidators: true,
-    // });
-
     const user = await User.findById(req.params.id);
 
     updates.forEach((update) => (user[update] = req.body[update]));
